@@ -115,7 +115,7 @@ class Cascader extends Component {
     this.props.onPopupVisibleChange(popupVisible);
   }
   handleChange = (options, setProps, e) => {
-    if (e.type !== 'keydown' || e.keyCode === KeyCode.ENTER) {
+    if (e===null || e==undefined ||e.type !== 'keydown' || e.keyCode === KeyCode.ENTER) {
       this.props.onChange(options.map(o => o[this.getFieldName('value')]), options);
       this.setPopupVisible(setProps.visible);
     }

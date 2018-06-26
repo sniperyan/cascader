@@ -59,6 +59,10 @@ class Menus extends React.Component {
     } else if (typeof option[this.getFieldName('label')] === 'string') {
       title = option[this.getFieldName('label')];
     }
+
+    if(option.custom){
+      return React.cloneElement(option.jsx,[...this.props,{className:menuItemCls,title:title},...expandProps])
+    }
     return (
       <li
         key={option[this.getFieldName('value')]}
@@ -85,6 +89,7 @@ class Menus extends React.Component {
       .map(activeOption => activeOption[this.getFieldName('children')])
       .filter(activeOption => !!activeOption);
     result.unshift(options);
+    console.log(result)
     return result;
   }
 
