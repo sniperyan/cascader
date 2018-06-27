@@ -115,8 +115,8 @@ class Cascader extends Component {
     this.props.onPopupVisibleChange(popupVisible);
   }
   handleChange = (options, setProps, e) => {
-    if (e===null || e==undefined ||e.type !== 'keydown' || e.keyCode === KeyCode.ENTER) {
-      this.props.onChange(options.map(o => o[this.getFieldName('value')]), options);
+    if (e.type === 'wym' || e.type !== 'keydown' || e.keyCode === KeyCode.ENTER) {
+      this.props.onChange(options[this.getFieldName('value')], options);
       this.setPopupVisible(setProps.visible);
     }
   }
@@ -139,7 +139,7 @@ class Cascader extends Component {
     const activeOptions = this.getActiveOptions(activeValue);
     if (targetOption.isLeaf === false && !targetOption[this.getFieldName('children')] && loadData) {
       if (changeOnSelect) {
-        this.handleChange(activeOptions, { visible: true }, e);
+        this.handleChange(targetOption, { visible: true }, e);
       }
       this.setState({ activeValue });
       loadData(activeOptions);
@@ -148,15 +148,15 @@ class Cascader extends Component {
     const newState = {};
     if (!targetOption[this.getFieldName('children')]
       || !targetOption[this.getFieldName('children')].length) {
-      this.handleChange(activeOptions, { visible: false }, e);
+      this.handleChange(targetOption, { visible: false }, e);
       // set value to activeValue when select leaf option
       newState.value = activeValue;
       // add e.type judgement to prevent `onChange` being triggered by mouseEnter
     } else if (changeOnSelect && (e.type === 'click' || e.type === 'keydown')) {
       if (expandTrigger === 'hover') {
-        this.handleChange(activeOptions, { visible: false }, e);
+        this.handleChange(targetOption, { visible: false }, e);
       } else {
-        this.handleChange(activeOptions, { visible: true }, e);
+        this.handleChange(targetOption, { visible: true }, e);
       }
       // set value to activeValue on every select
       newState.value = activeValue;

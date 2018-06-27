@@ -61,7 +61,8 @@ class Menus extends React.Component {
     }
 
     if(option.custom){
-      return React.cloneElement(option.jsx,[...this.props,{className:menuItemCls,title:title},...expandProps])
+      return React.cloneElement(option.jsx)
+      
     }
     return (
       <li
